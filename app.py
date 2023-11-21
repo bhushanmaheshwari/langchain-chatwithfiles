@@ -80,9 +80,11 @@ def handle_user_input(user_question):
 
     for i, message in enumerate(st.session_state.chat_history):
         if i%2 == 0:
-            st.write(user_template.replace("{{message}}", message.content), unsafe_allow_html=True)
+                with st.chat_message("user"):
+                    st.write(message.content, unsafe_allow_html=True)
         else:
-            st.write(bot_template.replace("{{message}}", message.content), unsafe_allow_html=True)
+                with st.chat_message("assistant"):
+                    st.write(message.content, unsafe_allow_html=True)
 
 def handle_sensitive_words():
     st.write("finding sensitive words")
@@ -106,10 +108,7 @@ def main():
     
     st.header("Board Package Review :books:")
     user_question = ''
-    user_question = st.text_input("Ask a question about your documents:", '')
-    
-    with st.chat_message("user"):
-        st.write("Hello 👋")
+    user_question = st.chat_input("Ask a question about your documents:")
     
     if user_question:
         handle_user_input(user_question)
