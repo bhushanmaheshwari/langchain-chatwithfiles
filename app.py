@@ -105,16 +105,16 @@ def main():
 
     if "conversation" not in st.session_state:
         st.session_state.conversation = None
+        # get vector store 
+        vector_store = get_vectorstore([])
+        # create conversation chain
         st.session_state.conversation = get_conversation_chain(vector_store)
+    
     if "chat_history" not in st.session_state:
         st.session_state.chat_history = None
     
     st.header("Board Package Review :books:")
 
-    # get vector store 
-    vector_store = get_vectorstore([])
-                
-    # create conversation chain
    
     user_question = ''
     user_question = st.chat_input("Ask a question about your documents:")
