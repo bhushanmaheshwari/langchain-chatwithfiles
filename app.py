@@ -56,6 +56,7 @@ def get_vectorstore(text_chunks):
     )
     index_name = 'chatpdf'
     index =  pinecone.Index(index_name)
+    # index.delete(delete_all=True)
     vector_store = Pinecone(index, embeddings.embed_query, "text")
     # vector_store = Pinecone.from_existing_index(index_name, embeddings)
     vector_store.add_texts(text_chunks)
@@ -91,6 +92,7 @@ def handle_sensitive_words():
     prompt_template = PromptTemplate.from_template(
         "You are a phrase extractor. Find out all the phrases and their sources - {phrases}"
     )
+    # Could you please find the occurrences of the following phrases from the given list_of_words. Share it in the bulleted list and associated page numbers list_of_words = "rural, generation of jobs, productivity, enterprise, irrigation"
     prompt = prompt_template.format(phrases="Irrigation, Water, Bengal")
     handle_user_input(prompt)
 
@@ -103,24 +105,33 @@ def main():
 
     if "conversation" not in st.session_state:
         st.session_state.conversation = None
+        st.session_state.conversation = get_conversation_chain(vector_store)
     if "chat_history" not in st.session_state:
         st.session_state.chat_history = None
     
     st.header("Board Package Review :books:")
+
+    # get vector store 
+    vector_store = get_vectorstore([])
+                
+    # create conversation chain
+   
     user_question = ''
     user_question = st.chat_input("Ask a question about your documents:")
     
     if user_question:
         handle_user_input(user_question)
 
+
+
     with st.sidebar:
         st.subheader("Your documents")
-        pdf_docs = st.file_uploader("Upload your PDFs here and click on 'Process'", accept_multiple_files=True)
+        pdf_docs = st.file_uploader("Upload your PDFs here and click on 'Process'. This will append to the existing index", accept_multiple_files=True)
         if st.button("Process"):
             with st.spinner("Processing"):
                 # get the pdf text
                 raw_text = get_pdf_text(pdf_docs)
-
+        
                 # get the text chunks
                 text_chunks = get_text_chunks(raw_text)
                 
@@ -128,7 +139,7 @@ def main():
                 vector_store = get_vectorstore(text_chunks)
                 
                 # create conversation chain
-                st.session_state.conversation = get_conversation_chain(vector_store)
+                # st.session_state.conversation = get_conversation_chain(vector_store)
 
 
 
