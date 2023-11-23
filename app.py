@@ -56,9 +56,9 @@ def get_vectorstore(text_chunks):
     )
     index_name = 'chatpdf'
     index =  pinecone.Index(index_name)
-    # vector_store = Pinecone(index, embeddings.embed_query, "text")
-    vector_store = Pinecone.from_existing_index(index_name, embeddings)
-    # vector_store.add_texts(text_chunks)
+    vector_store = Pinecone(index, embeddings.embed_query, "text")
+    # vector_store = Pinecone.from_existing_index(index_name, embeddings)
+    vector_store.add_texts(text_chunks)
 
     return vector_store
 
