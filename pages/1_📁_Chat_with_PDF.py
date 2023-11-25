@@ -48,20 +48,43 @@ def get_text_chunks(raw_text):
     chunks = text_splitter.split_text(raw_text)
     return chunks
 
-def get_vectorstore(text_chunks):
+def initialize_vectorstore(): 
     embeddings = OpenAIEmbeddings()
     pinecone.init(
         api_key=os.getenv('PINECONE_API_KEY'),
         environment=os.getenv('PINECONE_ENV')
     )
+
     index_name = 'chatpdf'
+
+    if index_name in pinecone.list_indexes():
+        pinecone.delete_index(index_name)
+
+    metadata_config = {
+        "indexed": ["documentname", "documenturl"]
+    }
+    pinecone.create_index(name=index_name, metric="cosine", dimension=1536, metadata_config=metadata_config)
+
     index =  pinecone.Index(index_name)
     # index.delete(delete_all=True)
     vector_store = Pinecone(index, embeddings.embed_query, "text")
     # vector_store = Pinecone.from_existing_index(index_name, embeddings)
+    return vector_store
+    
+
+def append_vectorstore(text_chunks):
+    embeddings = OpenAIEmbeddings()
+    pinecone.init(
+        api_key=os.getenv('PINECONE_API_KEY'),
+        environment=os.getenv('PINECONE_ENV')
+    )
+
+    index_name = 'chatpdf'
+    # index.delete(delete_all=True)
+    # vector_store = Pinecone(index, embeddings.embed_query, "text")
+    vector_store = Pinecone.from_existing_index(index_name, embeddings)
     vector_store.add_texts(text_chunks)
 
-    return vector_store
 
 def get_conversation_chain(vectorstore):
     llm = ChatOpenAI()
@@ -99,21 +122,20 @@ def handle_sensitive_words():
 
 def main():
     load_dotenv()
-    st.set_page_config(page_title="Sensitive Keywords", page_icon=":words:")
-
+    st.set_page_config(page_title="Chat with PDF | Document Review Tool", page_icon=":books:")
     st.write(css, unsafe_allow_html=True)
 
     if "conversation" not in st.session_state:
         st.session_state.conversation = None
         # get vector store 
-        vector_store = get_vectorstore([])
+        vector_store = initialize_vectorstore()
         # create conversation chain
         st.session_state.conversation = get_conversation_chain(vector_store)
     
     if "chat_history" not in st.session_state:
         st.session_state.chat_history = None
     
-    st.header("Board Package Review :books:")
+    st.header("Chat with PDF :file_folder:")
 
    
     user_question = ''
@@ -121,8 +143,6 @@ def main():
     
     if user_question:
         handle_user_input(user_question)
-
-
 
     with st.sidebar:
         st.subheader("Your documents")
@@ -136,7 +156,7 @@ def main():
                 text_chunks = get_text_chunks(raw_text)
                 
                 # create vector store 
-                vector_store = get_vectorstore(text_chunks)
+                append_vectorstore(text_chunks)
                 
                 # create conversation chain
                 # st.session_state.conversation = get_conversation_chain(vector_store)
