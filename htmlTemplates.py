@@ -3,6 +3,8 @@ css = '''
 #MainMenu {visibility: hidden;} 
 footer {visibility: hidden;}
 header {visibility: hidden;}
+div[class^="viewerBadge_container"] { display: none; }
+
 .chat-message {
     padding : 1.5rem; border-radius:0.5rem;margin-bottom:1rem;display:flex;
 }
