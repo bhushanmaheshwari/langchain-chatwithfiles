@@ -1,9 +1,12 @@
 import streamlit as st
+from htmlTemplates import css
 
 st.set_page_config(
     page_title="Document Review Tool",
     page_icon=":books:",
 )
+
+st.write(css, unsafe_allow_html=True)
 
 st.write("# Welcome to Document Review Tool! 👋")
 
