@@ -1,5 +1,7 @@
 css = '''
 <style>
+#MainMenu {visibility: hidden;} 
+footer {visibility: hidden;}
 .chat-message {
     padding : 1.5rem; border-radius:0.5rem;margin-bottom:1rem;display:flex;
 }
