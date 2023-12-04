@@ -20,7 +20,7 @@ def get_text_chunks(raw_text):
 
     text_splitter = RecursiveCharacterTextSplitter(
         separators=["/n/n", "/n", " ", ""],
-        chunk_size=400,
+        chunk_size=1024,
         chunk_overlap=20,
         length_function=tiktoken_len
     )
