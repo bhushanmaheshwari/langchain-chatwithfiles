@@ -15,7 +15,7 @@ def add_log(title, message = ''):
     #placeholder = st.empty()
     #with placeholder.container():
     #    st.info(title)
-    #    time.sleep(0.1)
+    #    time.sleep(0.5)
     #placeholder.empty()
     
 

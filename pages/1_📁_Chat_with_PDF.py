@@ -7,12 +7,12 @@ from htmlTemplates import css
 from dotenv import load_dotenv
 
 def initialize_chat_with_pdf():
+    st.set_page_config(page_title="Chat with PDF | LLM tools", page_icon=":books:")
     load_dotenv()
     initialize_logs()
     initialize_session()
 
 def page_layout():
-    # st.set_page_config(page_title="Chat with PDF | LLM tools", page_icon=":books:")
     mapping = {
         'P180732' : 'Ukraine Agriculture Recovery Inclusive Support Emergency (ARISE) Project (P180732)',
         'P179361' : 'Philippines First Digital Transformation Development Policy Financing',
@@ -32,5 +32,5 @@ def main():
         new_documents()
         existing_documents()
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+main()

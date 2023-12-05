@@ -7,6 +7,7 @@ import streamlit as st
 
 from utils.logs import add_log
 
+st.cache_resource()
 def initialize_firebase_storage():
     if "bucket" not in st.session_state:
         add_log("initialized storage bucket session state")

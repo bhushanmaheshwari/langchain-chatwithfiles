@@ -25,7 +25,10 @@ def handle_session_change():
 def session_switcher():
     add_log('session_switcher_initialized')
     st.subheader("Session")
-    
+    #on = st.toggle('Add session')
+    #if on:
+    #    st.write('Feature activated!')
+
     st.selectbox(
         'Select your session',
         st.session_state.session_options,
