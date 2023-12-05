@@ -19,7 +19,8 @@ def page_layout():
         'P179182' : 'Rio de Janeiro Fiscal Management and Sustainable Development Policy Loan',
         'P179192' : 'Morocco Water Security and Resilience Program',
         'P179037' : 'Irrigation for Climate Resilient Agriculture',
-        'P179039' : 'Karnataka Sustainable Rural Water Supply Program'
+        'P179039' : 'Karnataka Sustainable Rural Water Supply Program',
+        'P181081': 'Ukraine - Investing in Social Protection for Inclusion, Resilience, and Efficiency (INSPIRE) Project'
     }
     st.write(css, unsafe_allow_html=True)
     st.header(mapping[st.session_state.session_id])
