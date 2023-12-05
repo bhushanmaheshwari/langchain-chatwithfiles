@@ -17,7 +17,8 @@ def page_layout():
         'P180732' : 'Ukraine Agriculture Recovery Inclusive Support Emergency (ARISE) Project (P180732)',
         'P179361' : 'Philippines First Digital Transformation Development Policy Financing',
         'P179182' : 'Rio de Janeiro Fiscal Management and Sustainable Development Policy Loan',
-        'P179192' : 'Morocco Water Security and Resilience Program'
+        'P179192' : 'Morocco Water Security and Resilience Program',
+        'P179037' : 'Irrigation for Climate Resilient Agriculture'
     }
     st.write(css, unsafe_allow_html=True)
     st.header(mapping[st.session_state.session_id])
