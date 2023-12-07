@@ -14,7 +14,8 @@ def initialize_session():
         'P181081',
         'bhushan',
         'parul',
-        'West Bengal Irrigation'
+        'West Bengal Irrigation',
+        'Chile'
     ]
     if 'session_id' not in st.session_state:
         st.session_state['session_id'] = 'P180732'
