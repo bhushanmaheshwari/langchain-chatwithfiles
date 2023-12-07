@@ -20,10 +20,13 @@ def page_layout():
         'P179192' : 'Morocco Water Security and Resilience Program',
         'P179037' : 'Irrigation for Climate Resilient Agriculture',
         'P179039' : 'Karnataka Sustainable Rural Water Supply Program',
-        'P181081': 'Ukraine - Investing in Social Protection for Inclusion, Resilience, and Efficiency (INSPIRE) Project'
+        'P181081': 'Ukraine - Investing in Social Protection for Inclusion, Resilience, and Efficiency (INSPIRE) Project',
+        'bhushan' : 'Bhushan Maheshwari',
+        'parul' : 'Parul Hingad'
     }
     st.write(css, unsafe_allow_html=True)
-    st.header(mapping[st.session_state.session_id])
+    heading = mapping[st.session_state.session_id] if st.session_state.session_id in mapping else st.session_state.session_id
+    st.header(heading)
 
 def main():
     initialize_chat_with_pdf()

@@ -53,7 +53,7 @@ def initialize_firebase_storage():
 
 def upload_file(file):
     add_log("uploading file to storage")
-
+    
     destination = st.session_state.session_id + "/" + file.name
     blob = st.session_state.bucket.blob(destination)
     blob.upload_from_file(file)
