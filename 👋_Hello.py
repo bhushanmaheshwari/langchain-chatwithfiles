@@ -1,5 +1,10 @@
 import streamlit as st
+from utils.login import check_password
 
+if not check_password():
+    st.stop()  # Do not continue if check_password is not True.
+
+# Main Streamlit app starts here
 st.set_page_config(
     page_title="LLM Tools",
     page_icon=":books:",

@@ -5,7 +5,11 @@ from utils.session import session_switcher, initialize_session
 from utils.logs import initialize_logs, add_log
 from htmlTemplates import css
 from dotenv import load_dotenv
+from utils.login import check_password
 
+if not check_password():
+    st.stop()  # Do not continue if check_password is not True.
+    
 def initialize_chat_with_pdf():
     st.set_page_config(page_title="Chat with PDF | LLM tools", page_icon=":books:")
     load_dotenv()
